@@ -10,13 +10,8 @@
         
         body { font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        .animate-fade-in { 
-            animation: fadeIn 0.5s ease-out forwards; 
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
 
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
@@ -34,7 +29,7 @@
 <body class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 flex items-center justify-center p-4 font-sans text-slate-800">
 
     <div class="bg-white w-full max-w-lg min-h-[700px] max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col relative">
-        
+
         <header id="appHeader" class="bg-indigo-600 p-5 text-white flex justify-between items-center shadow-md z-10 flex-shrink-0">
             <div class="flex items-center gap-3 cursor-pointer" onclick="window.goHome()">
                 <i data-lucide="graduation-cap" class="w-7 h-7"></i>
@@ -334,7 +329,6 @@
     </div>
 
     <script>
-
         const KEYS = { RECORDS: 'study_records', HELPER: 'helper_history' };
         window.safeParse = function(str, fallback) { try { return str ? JSON.parse(str) : fallback; } catch (e) { return fallback; } };
         window.getLocalTodayStr = function() {
@@ -344,7 +338,6 @@
             const day = String(now.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         };
-
 
         document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('beforeunload', () => {
@@ -620,7 +613,9 @@
         window.handleGradeStart = function() {
             const n = parseInt(document.getElementById('numPerformanceInput').value);
             if(isNaN(n)||n<1||n>9) { window.setGradeError('1에서 9 사이의 숫자를 입력해주세요.',1); return; }
-            window.gcPerformances = Array(n).fill({score:'',weight:''});
+
+            window.gcPerformances = Array.from({ length: n }, () => ({ score: '', weight: '' }));
+            
             window.clearGradeError(); window.showGradeStep(2);
         };
         window.renderPerformances = function() {
@@ -629,16 +624,11 @@
                 const hide = window.gcMode==='non-written'?'display:none':'';
                 const el = document.createElement('div');
                 el.className = "bg-slate-50 p-4 rounded-xl border border-slate-100 relative";
-                el.innerHTML = `<div class="absolute top-0 right-0 bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg">수행 ${i+1}</div><div class="grid ${window.gcMode==='written'?'grid-cols-2':'grid-cols-1'} gap-4 mt-2"><div><label class="block text-xs font-bold text-slate-500 mb-1">점수 (0~100)</label><input type="number" data-idx="${i}" data-field="score" value="${p.score}" class="w-full px-3 py-2 rounded-lg border border-slate-300 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all" placeholder="점수"></div><div style="${hide}"><label class="block text-xs font-bold text-slate-500 mb-1">비율 (%)</label><div class="relative"><input type="number" data-idx="${i}" data-field="weight" value="${p.weight}" class="w-full px-3 py-2 rounded-lg border border-slate-300 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all pr-8" placeholder="%"><span class="absolute right-3 top-2 text-slate-400 font-bold">%</span></div></div></div>`;
+                el.innerHTML = `<div class="absolute top-0 right-0 bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg">수행 ${i+1}</div><div class="grid ${window.gcMode==='written'?'grid-cols-2':'grid-cols-1'} gap-4 mt-2"><div><label class="block text-xs font-bold text-slate-500 mb-1">점수 (0~100)</label><input type="number" data-idx="${i}" data-field="score" value="${p.score}" class="w-full px-3 py-2 rounded-lg border border-slate-300 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all" placeholder="점수" oninput="window.updatePerf(${i},'score',this.value)"></div><div style="${hide}"><label class="block text-xs font-bold text-slate-500 mb-1">비율 (%)</label><div class="relative"><input type="number" data-idx="${i}" data-field="weight" value="${p.weight}" class="w-full px-3 py-2 rounded-lg border border-slate-300 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all pr-8" placeholder="%" oninput="window.updatePerf(${i},'weight',this.value)"><span class="absolute right-3 top-2 text-slate-400 font-bold">%</span></div></div></div>`;
                 c.appendChild(el);
             });
-            c.querySelectorAll('input').forEach(inp => {
-                inp.onchange = (e) => {
-                    window.gcPerformances[e.target.dataset.idx][e.target.dataset.field] = e.target.value;
-                    window.clearGradeError();
-                };
-            });
         }
+        window.updatePerf = function(i,f,v) { window.gcPerformances[i][f] = v; window.clearGradeError(); };
         window.calculateGrade = function() {
             for(let i=0; i<window.gcPerformances.length; i++) {
                 const p = window.gcPerformances[i];
@@ -752,6 +742,4 @@
         };
     </script>
 </body>
-
 </html>
-
