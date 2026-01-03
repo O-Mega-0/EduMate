@@ -443,7 +443,7 @@
                         }).catch(e => {
 
                             console.log('Sound error', e);
-                            const msg = window.isWorking ? "휴식 끝! 공부 시작!" : "공부 끝! 5분간 휴식하세요.";
+                            const msg = window.isWorking ? "공부 끝! 5분간 휴식하세요." : "휴식 끝! 공부 시작!";
                             alert(msg);
                             window.isWorking = !window.isWorking;
                             window.timeLeft = window.isWorking ? 25 * 60 : 5 * 60;
