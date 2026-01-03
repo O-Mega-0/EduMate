@@ -7,17 +7,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
-        
         body { font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
-
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
         .helper-card { @apply bg-white p-5 rounded-2xl shadow-sm border border-slate-100 transition-all; }
         .helper-card:hover { @apply shadow-md border-indigo-100; }
@@ -330,6 +326,9 @@
 
     <script>
         const KEYS = { RECORDS: 'study_records', HELPER: 'helper_history' };
+
+        const NOTIFICATION_SOUND = new Audio('https://raw.githubusercontent.com/nuelim887/Sound-Effect-2/main/Sound-Effect-2.mp3');
+
         window.safeParse = function(str, fallback) { try { return str ? JSON.parse(str) : fallback; } catch (e) { return fallback; } };
         window.getLocalTodayStr = function() {
             const now = new Date();
@@ -342,7 +341,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('beforeunload', () => {
                 if(window.isTimerRunning && window.isWorking && window.currentSessionSeconds > 0) {
-                    window.saveStudyTime(window.currentSessionSeconds);
+                    window.saveStudyTime(window.currentSessionSeconds % 60);
                 }
             });
             window.navigateTo('home');
@@ -381,7 +380,7 @@
             const m = Math.floor(window.timeLeft / 60).toString().padStart(2, '0');
             const s = (window.timeLeft % 60).toString().padStart(2, '0');
             document.getElementById('timerDisplay').textContent = `${m}:${s}`;
-            const total = window.isWorking ? 25 * 60 : 10 * 60;
+            const total = window.isWorking ? 25 * 60 : 5 * 60; 
             const progress = ((total - window.timeLeft) / total) * 753.98;
             document.getElementById('timerProgress').style.strokeDashoffset = -progress;
         };
@@ -410,18 +409,28 @@
                     if (window.timeLeft > 0) {
                         window.timeLeft--;
                         if (window.isWorking) window.currentSessionSeconds++;
+
+                        if (window.isWorking && window.currentSessionSeconds > 0 && window.currentSessionSeconds % 60 === 0) {
+                            window.saveStudyTime(60);
+                        }
+
                         window.updateTimerDisplay();
                     } else {
                         clearInterval(window.timerInterval);
                         window.isTimerRunning = false;
-                        window.saveStudyTime(window.currentSessionSeconds);
+                        window.saveStudyTime(window.currentSessionSeconds % 60);
                         window.currentSessionSeconds = 0;
+
+                        NOTIFICATION_SOUND.play().catch(e => console.log('Sound error', e));
+
                         window.isWorking = !window.isWorking;
-                        window.timeLeft = window.isWorking ? 25 * 60 : 10 * 60;
+                        window.timeLeft = window.isWorking ? 25 * 60 : 5 * 60;
+                        
                         btn.innerHTML = '<i data-lucide="play"></i> <span>' + (window.isWorking ? "공부 시작" : "휴식 시작") + '</span>';
                         btn.className = "flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2";
                         stopBtn.disabled = true;
-                        alert(window.isWorking ? "휴식 끝! 공부 시작!" : "공부 끝! 휴식 시작!");
+                        
+                        alert(window.isWorking ? "휴식 끝! 공부 시작!" : "공부 끝! 5분간 휴식하세요.");
                         window.updateTimerDisplay();
                         window.updateTimerButton();
                     }
@@ -440,7 +449,7 @@
             clearInterval(window.timerInterval);
             window.isTimerRunning = false;
             if (window.currentSessionSeconds > 0) {
-                window.saveStudyTime(window.currentSessionSeconds);
+                window.saveStudyTime(window.currentSessionSeconds % 60);
                 alert(`${Math.floor(window.currentSessionSeconds/60)}분 ${window.currentSessionSeconds%60}초 저장됨`);
             }
             window.timeLeft = 25 * 60;
@@ -613,9 +622,7 @@
         window.handleGradeStart = function() {
             const n = parseInt(document.getElementById('numPerformanceInput').value);
             if(isNaN(n)||n<1||n>9) { window.setGradeError('1에서 9 사이의 숫자를 입력해주세요.',1); return; }
-
             window.gcPerformances = Array.from({ length: n }, () => ({ score: '', weight: '' }));
-            
             window.clearGradeError(); window.showGradeStep(2);
         };
         window.renderPerformances = function() {
