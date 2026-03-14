@@ -62,13 +62,13 @@
                     </div>
                 </button>
 
-                <button onclick="window.navigateTo('stats')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-500 transition-all flex items-center gap-4 group">
-                    <div class="bg-blue-100 p-3 rounded-xl group-hover:bg-blue-600 transition-colors">
-                        <i data-lucide="sigma" class="w-8 h-8 text-blue-600 group-hover:text-white transition-colors"></i>
+                <button onclick="window.navigateTo('timetable')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-teal-200 transition-all flex items-center gap-4 group">
+                    <div class="bg-teal-100 p-3 rounded-xl group-hover:bg-teal-500 transition-colors">
+                        <i data-lucide="calendar-days" class="w-8 h-8 text-teal-600 group-hover:text-white transition-colors"></i>
                     </div>
                     <div class="text-left">
-                        <div class="font-bold text-lg text-slate-800">대푯값 계산기</div>
-                        <div class="text-sm text-slate-500">평균, 중앙값, 최빈값 계산</div>
+                        <div class="font-bold text-lg text-slate-800">시간표 확인</div>
+                        <div class="text-sm text-slate-500">우리 반 시간표 조회</div>
                     </div>
                 </button>
 
@@ -93,6 +93,7 @@
                 </button>
             </div>
 
+            
             <div id="page-timer" class="hidden h-full flex flex-col p-8 items-center justify-center animate-fade-in relative">
                 <div class="absolute top-6 left-0 w-full text-center">
                     <span id="timerStatus" class="inline-block px-4 py-1 rounded-full text-sm font-bold bg-indigo-100 text-indigo-700">공부 준비</span>
@@ -123,92 +124,75 @@
                 </p>
             </div>
 
-            <div id="page-stats" class="hidden h-full flex flex-col p-6 overflow-y-auto custom-scrollbar animate-fade-in bg-slate-50">
+            
+            <div id="page-timetable" class="hidden h-full flex flex-col p-6 overflow-y-auto custom-scrollbar animate-fade-in bg-slate-50">
                 <header class="mb-6 text-center">
-                    <div class="inline-flex items-center justify-center p-3 bg-blue-600 rounded-2xl shadow-lg mb-4">
-                        <i data-lucide="calculator" class="w-8 h-8 text-white"></i>
+                    <div class="inline-flex items-center justify-center p-3 bg-teal-500 rounded-2xl shadow-lg mb-4">
+                        <i data-lucide="calendar-days" class="w-8 h-8 text-white"></i>
                     </div>
-                    <h1 class="text-2xl font-bold text-slate-900 mb-1">대푯값 계산기</h1>
-                    <p class="text-sm text-slate-500">평균, 중앙값, 최빈값 등을 한 번에 계산</p>
+                    <h1 class="text-2xl font-bold text-slate-900 mb-1">우리 반 시간표</h1>
+                    <p class="text-sm text-slate-500">원하는 반을 선택하여 시간표를 확인하세요</p>
                 </header>
 
-                <div class="grid grid-cols-1 gap-6 pb-20">
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-lg font-semibold flex items-center gap-2">
-                                <i data-lucide="hash" class="w-5 h-5 text-blue-500"></i> 숫자 입력
-                            </h2>
-                            <button onclick="window.loadStatsExample()" class="text-xs text-blue-600 hover:text-blue-800 font-medium px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 transition-colors">예제 넣기</button>
-                        </div>
-                        
-                        <textarea id="statsInput" class="w-full h-32 p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none text-slate-700 placeholder-slate-400 transition-all text-lg font-medium" placeholder="숫자를 입력하세요.&#13;&#10;(쉼표, 공백, 줄바꿈으로 구분)"></textarea>
-                        
-                        <div id="statsError" class="hidden mt-2 p-3 bg-red-50 text-red-600 text-sm rounded-lg flex items-center gap-2">
-                            <i data-lucide="info" class="w-4 h-4 flex-shrink-0"></i> <span id="statsErrorText"></span>
-                        </div>
-
-                        <div class="mt-4 grid grid-cols-2 gap-3">
-                            <button onclick="window.handleStatsClear()" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-medium transition-all">
-                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> 초기화
-                            </button>
-                            <button onclick="window.handleStatsCalculate()" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow-md transition-all font-medium">
-                                <i data-lucide="calculator" class="w-4 h-4"></i> 계산하기
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-lg font-semibold flex items-center gap-2">
-                                <i data-lucide="bar-chart-3" class="w-5 h-5 text-indigo-500"></i> 계산 결과
-                            </h2>
-                            <button id="statsCopyBtn" onclick="window.copyStatsResult()" class="hidden flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors">
-                                <i data-lucide="copy" class="w-4 h-4"></i> 결과 복사
-                            </button>
-                        </div>
-
-                        <div id="statsPlaceholder" class="h-48 flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-100 rounded-xl">
-                            <i data-lucide="bar-chart-3" class="w-12 h-12 mb-3 opacity-20"></i>
-                            <p class="text-sm">숫자를 입력하고 계산 버튼을 눌러주세요</p>
-                        </div>
-
-                        <div id="statsResult" class="hidden space-y-6">
-                            <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
-                                <div class="text-blue-100 text-sm font-medium mb-1">산술 평균 (Mean)</div>
-                                <div id="valMean" class="text-5xl font-bold tracking-tight truncate">-</div>
-                                <div class="mt-4 flex gap-4 text-blue-100 text-sm border-t border-white/20 pt-4">
-                                    <div><span class="opacity-70">합계:</span> <span id="valSum" class="font-semibold text-white ml-1">-</span></div>
-                                    <div><span class="opacity-70">개수:</span> <span id="valCount" class="font-semibold text-white ml-1">-개</span></div>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                    <div class="text-slate-500 text-xs font-medium mb-1 flex items-center gap-1"><i data-lucide="trending-up" class="w-3 h-3"></i> 중앙값 (Median)</div>
-                                    <div id="valMedian" class="text-slate-800 font-bold text-xl truncate">-</div>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                    <div class="text-slate-500 text-xs font-medium mb-1 flex items-center gap-1"><i data-lucide="bar-chart-2" class="w-3 h-3"></i> 최빈값 (Mode)</div>
-                                    <div id="valMode" class="text-slate-800 font-bold text-xl truncate">-</div>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                    <div class="text-slate-500 text-xs font-medium mb-1 flex items-center gap-1"><i data-lucide="maximize-2" class="w-3 h-3"></i> 최대값 (Max)</div>
-                                    <div id="valMax" class="text-slate-800 font-bold text-xl truncate">-</div>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                    <div class="text-slate-500 text-xs font-medium mb-1 flex items-center gap-1"><i data-lucide="minimize-2" class="w-3 h-3"></i> 최소값 (Min)</div>
-                                    <div id="valMin" class="text-slate-800 font-bold text-xl truncate">-</div>
-                                </div>
-                                <div class="col-span-2 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                    <div class="text-slate-500 text-xs font-medium mb-1 flex items-center gap-1"><i data-lucide="ruler" class="w-3 h-3"></i> 범위 (Range)</div>
-                                    <div id="valRange" class="text-slate-800 font-bold text-xl truncate">-</div>
-                                </div>
-                            </div>
+                <div class="mb-6 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                    <label for="classSelector" class="font-bold text-slate-700 flex items-center gap-2">
+                        <i data-lucide="users" class="w-5 h-5 text-teal-500"></i> 반 선택
+                    </label>
+                    <div class="relative">
+                        <select id="classSelector" onchange="window.renderTimetable()" class="appearance-none bg-slate-50 border border-slate-200 text-slate-700 py-2 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent font-bold">
+                            <optgroup label="1학년">
+                                <option value="1-1">1학년 1반</option>
+                                <option value="1-2">1학년 2반</option>
+                                <option value="1-3">1학년 3반</option>
+                                <option value="1-4">1학년 4반</option>
+                                <option value="1-5">1학년 5반</option>
+                                <option value="1-6">1학년 6반</option>
+                                <option value="1-7">1학년 7반</option>
+                                <option value="1-8">1학년 8반</option>
+                            </optgroup>
+                            <optgroup label="2학년">
+                                <option value="2-1">2학년 1반</option>
+                                <option value="2-2">2학년 2반</option>
+                                <option value="2-3">2학년 3반</option>
+                                <option value="2-4">2학년 4반</option>
+                                <option value="2-5">2학년 5반</option>
+                                <option value="2-6">2학년 6반</option>
+                                <option value="2-7">2학년 7반</option>
+                            </optgroup>
+                            <optgroup label="3학년">
+                                <option value="3-1">3학년 1반</option>
+                                <option value="3-2">3학년 2반</option>
+                                <option value="3-3">3학년 3반</option>
+                                <option value="3-4">3학년 4반</option>
+                                <option value="3-5">3학년 5반</option>
+                                <option value="3-6">3학년 6반</option>
+                                <option value="3-7">3학년 7반</option>
+                            </optgroup>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden pb-4">
+                    <table class="w-full text-center table-fixed border-collapse">
+                        <thead class="bg-teal-50 text-teal-800 text-sm">
+                            <tr>
+                                <th class="py-3 border-b border-r border-teal-100 w-12 font-bold">교시</th>
+                                <th class="py-3 border-b border-teal-100 font-bold">월</th>
+                                <th class="py-3 border-b border-teal-100 font-bold">화</th>
+                                <th class="py-3 border-b border-teal-100 font-bold">수</th>
+                                <th class="py-3 border-b border-teal-100 font-bold">목</th>
+                                <th class="py-3 border-b border-teal-100 font-bold">금</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timetableBody" class="text-slate-700 text-sm font-medium">
+                            
+                        </tbody>
+                    </table>
+
+            
             <div id="page-grade" class="hidden h-full p-6 overflow-y-auto custom-scrollbar animate-fade-in">
                 
                 <div id="gc-step0" class="space-y-6 animate-fade-in">
@@ -288,6 +272,7 @@
                 </div>
             </div>
 
+            
             <div id="page-helper" class="hidden h-full flex flex-col animate-fade-in bg-slate-50 overflow-hidden relative">
                 <div id="helper-home" class="h-full flex flex-col p-6 overflow-y-auto custom-scrollbar">
                     <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 mb-6">
@@ -317,6 +302,7 @@
             </div>
         </main>
 
+        
         <div id="calendarModal" class="hidden absolute inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center backdrop-blur-sm">
             <div class="bg-white w-full sm:w-[90%] max-h-[90%] rounded-t-3xl sm:rounded-2xl shadow-2xl flex flex-col animate-fade-in overflow-hidden">
                 <div class="bg-indigo-600 p-4 text-white flex justify-between items-center"><h2 class="text-lg font-bold flex items-center gap-2"><i data-lucide="calendar"></i> 나의 공부 달력</h2><button onclick="window.toggleCalendar()" class="p-1 hover:bg-white/20 rounded-full"><i data-lucide="x"></i></button></div>
@@ -331,9 +317,35 @@
     </div>
 
     <script>
-        const KEYS = { RECORDS: 'study_records', HELPER: 'helper_history' };
+        const KEYS = { RECORDS: 'study_records', HELPER: 'helper_history', MY_CLASS: 'my_class' };
+        
+        const NOTIFICATION_SOUND = new Audio('https://raw.githubusercontent.com/nuelim887/Sound-Effect-2/main/Sound-Effect-2.mp3');
 
-        const NOTIFICATION_SOUND = new Audio('https://raw.githubusercontent.com/o-mega-0/EduMate/main/SoundEffect');
+        
+        const TIMETABLES = {
+            "1-1": [["진탐","영어","과학","체육","국어"],["진탐","보건","기가","수학","과학"],["수학","진로","국어","주1","영어"],["체육","정보","수학","주1","사회"],["과학","스포","정보","주2","기가"],["국어","사회","음악","주2","미술"]],
+            "1-2": [["진탐","과학","기가","수학","영어"],["진탐","음악","사회","보건","국어"],["과학","체육","영어","주1","진로"],["기가","국어","정보","주1","체육"],["사회","스포","국어","주2","미술"],["정보","수학","과학","주2","수학"]],
+            "1-3": [["진탐","수학","체육","정보","정보"],["진탐","영어","국어","영어","음악"],["보건","미술","사회","주1","체육"],["국어","과학","과학","주1","기가"],["수학","스포","진로","주2","수학"],["사회","국어","기가","주2","과학"]],
+            "1-4": [["진탐","체육","국어","과학","과학"],["진탐","수학","수학","정보","기가"],["체육","기가","과학","주1","음악"],["사회","진로","미술","주1","국어"],["국어","스포","영어","주2","영어"],["수학","정보","사회","주2","보건"]],
+            "1-5": [["정보","미술","과학","사회","과학"],["국어","국어","보건","진로","영어"],["진탐","수학","체육","주1","수학"],["진탐","체육","기가","주1","정보"],["과학","영어","음악","주2","국어"],["기가","스포","수학","주2","사회"]],
+            "1-6": [["기가","수학","기가","진로","수학"],["체육","정보","체육","과학","국어"],["진탐","사회","보건","주1","사회"],["진탐","음악","수학","주1","미술"],["영어","과학","국어","주2","정보"],["국어","스포","영어","주2","과학"]],
+            "1-7": [["영어","과학","수학","국어","사회"],["정보","체육","영어","수학","체육"],["진탐","보건","국어","주1","기가"],["진탐","국어","과학","주1","진로"],["수학","미술","사회","주2","음악"],["과학","스포","기가","주2","정보"]],
+            "1-8": [["사회","수학","수학","영어","기가"],["영어","과학","진로","체육","수학"],["진탐","기가","음악","주1","보건"],["진탐","사회","과학","주1","국어"],["정보","국어","미술","주2","과학"],["국어","스포","정보","주2","체육"]],
+            "2-1": [["과학","기가","체육","수학","역사"],["역사","미술","역사","영어","체육"],["도덕","영어","영어","체육","수학"],["국어","과학","스포","과학","국어"],["영어","중국","기가","음악","과학"],["수학","국어","수학","국어","중국"]],
+            "2-2": [["중국","체육","미술","역사","기가"],["수학","과학","기가","음악","국어"],["역사","수학","국어","과학","과학"],["도덕","국어","스포","체육","체육"],["과학","역사","영어","수학","수학"],["국어","영어","중국","영어","영어"]],
+            "2-3": [["국어","음악","영어","국어","중국"],["과학","과학","체육","체육","도덕"],["기가","영어","수학","영어","영어"],["체육","중국","스포","미술","역사"],["수학","수학","국어","과학","국어"],["역사","기가","역사","수학","과학"]],
+            "2-4": [["체육","도덕","수학","체육","체육"],["영어","영어","국어","과학","영어"],["과학","국어","중국","수학","역사"],["기가","역사","스포","역사","수학"],["국어","과학","과학","기가","중국"],["음악","수학","영어","미술","국어"]],
+            "2-5": [["수학","영어","역사","국어","미술"],["체육","체육","음악","과학","수학"],["영어","국어","수학","영어","도덕"],["국어","역사","중국","수학","과학"],["과학","기가","스포","체육","역사"],["중국","과학","영어","기가","국어"]],
+            "2-6": [["국어","역사","영어","음악","영어"],["도덕","중국","국어","기가","중국"],["체육","과학","역사","미술","체육"],["영어","체육","과학","수학","국어"],["수학","수학","스포","영어","기가"],["역사","국어","수학","과학","과학"]],
+            "2-7": [["기가","수학","국어","영어","음악"],["영어","도덕","중국","미술","역사"],["국어","체육","체육","기가","국어"],["중국","영어","수학","과학","영어"],["역사","국어","스포","수학","수학"],["과학","과학","역사","체육","과학"]],
+            "3-1": [["역사","수학","도덕","체육","영어"],["수학","체육","미술","영어","미술"],["과학","과학","사회","역사","사회"],["국어","영어","국어","수학","국어"],["스포","음악","과학","과학","수학"],["기가","국어","스포","기가","도덕"],["-","-","영어","-","-"]],
+            "3-2": [["과학","사회","체육","과학","과학"],["국어","수학","국어","기가","영어"],["역사","체육","기가","영어","수학"],["미술","도덕","미술","국어","음악"],["스포","국어","수학","사회","도덕"],["영어","영어","스포","수학","역사"],["-","-","과학","-","-"]],
+            "3-3": [["체육","과학","역사","미술","과학"],["도덕","기가","과학","역사","수학"],["영어","국어","영어","체육","국어"],["수학","수학","수학","과학","기가"],["스포","미술","사회","도덕","영어"],["국어","음악","스포","영어","사회"],["-","-","국어","-","-"]],
+            "3-4": [["국어","기가","음악","사회","수학"],["체육","과학","역사","국어","체육"],["미술","영어","미술","수학","과학"],["과학","사회","영어","기가","영어"],["스포","도덕","국어","영어","역사"],["도덕","수학","스포","과학","국어"],["-","-","수학","-","-"]],
+            "3-5": [["수학","체육","사회","도덕","기가"],["미술","역사","영어","과학","국어"],["체육","미술","도덕","국어","과학"],["국어","기가","음악","역사","사회"],["영어","과학","국어","영어","영어"],["스포","수학","과학","수학","수학"],["-","-","스포","-","-"]],
+            "3-6": [["사회","국어","국어","과학","체육"],["국어","도덕","체육","수학","기가"],["수학","음악","수학","영어","수학"],["과학","과학","사회","도덕","미술"],["영어","역사","기가","국어","과학"],["스포","영어","미술","역사","영어"],["-","-","스포","-","-"]],
+            "3-7": [["영어","미술","수학","기가","수학"],["기가","국어","과학","체육","역사"],["국어","수학","체육","도덕","미술"],["수학","영어","역사","영어","과학"],["사회","과학","영어","과학","국어"],["스포","사회","도덕","국어","음악"],["-","-","스포","-","-"]]
+        };
 
         window.safeParse = function(str, fallback) { try { return str ? JSON.parse(str) : fallback; } catch (e) { return fallback; } };
         window.getLocalTodayStr = function() {
@@ -350,12 +362,23 @@
                     window.saveStudyTime(window.currentSessionSeconds % 60);
                 }
             });
+            
+            
+            const savedClass = localStorage.getItem(KEYS.MY_CLASS);
+            if (savedClass) {
+                const selector = document.getElementById('classSelector');
+                if (selector.querySelector(`option[value="${savedClass}"]`)) {
+                    selector.value = savedClass;
+                }
+            }
+            window.renderTimetable(); 
+
             window.navigateTo('home');
             lucide.createIcons();
         });
 
         window.navigateTo = function(pageId) {
-            ['home', 'timer', 'stats', 'grade', 'helper'].forEach(id => {
+            ['home', 'timer', 'timetable', 'grade', 'helper'].forEach(id => {
                 const el = document.getElementById(`page-${id}`);
                 if(el) el.classList.add('hidden');
             });
@@ -376,9 +399,41 @@
         };
         window.goHome = function() { window.navigateTo('home'); };
 
+        
+        window.renderTimetable = function() {
+            const classId = document.getElementById('classSelector').value;
+            const data = TIMETABLES[classId];
+            const tbody = document.getElementById('timetableBody');
+            tbody.innerHTML = '';
+            
+            
+            localStorage.setItem(KEYS.MY_CLASS, classId);
+
+            data.forEach((row, rowIndex) => {
+                
+                const isRowEmpty = row.every(cell => cell === '-' || cell === '');
+                if (isRowEmpty && rowIndex > 5) return;
+
+                const tr = document.createElement('tr');
+                tr.className = rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-50';
+                
+                let html = `<td class="py-3 border-r border-slate-200 font-bold text-slate-500 bg-slate-50">${rowIndex + 1}</td>`;
+                
+                row.forEach((subject) => {
+                    const isEmpty = subject === '-' || subject === '';
+                    const displaySubject = isEmpty ? '' : subject;
+                    html += `<td class="py-3 border-slate-100 border-r last:border-r-0 ${isEmpty ? '' : 'text-slate-700'}">${displaySubject}</td>`;
+                });
+                
+                tr.innerHTML = html;
+                tbody.appendChild(tr);
+            });
+        };
+
+        
         window.timerInterval = null;
         window.isWorking = true;
-        window.timeLeft = 25 * 60;
+        window.timeLeft = 25 * 60; 
         window.currentSessionSeconds = 0;
         window.isTimerRunning = false;
 
@@ -386,7 +441,7 @@
             const m = Math.floor(window.timeLeft / 60).toString().padStart(2, '0');
             const s = (window.timeLeft % 60).toString().padStart(2, '0');
             document.getElementById('timerDisplay').textContent = `${m}:${s}`;
-            const total = window.isWorking ? 25 * 60 : 5 * 60;
+            const total = window.isWorking ? 25 * 60 : 5 * 60; 
             const progress = ((total - window.timeLeft) / total) * 753.98;
             document.getElementById('timerProgress').style.strokeDashoffset = -progress;
         };
@@ -415,7 +470,8 @@
                     if (window.timeLeft > 0) {
                         window.timeLeft--;
                         if (window.isWorking) window.currentSessionSeconds++;
-
+                        
+                        
                         if (window.isWorking && window.currentSessionSeconds > 0 && window.currentSessionSeconds % 60 === 0) {
                             window.saveStudyTime(60);
                         }
@@ -426,15 +482,16 @@
                         window.isTimerRunning = false;
                         window.saveStudyTime(window.currentSessionSeconds % 60);
                         window.currentSessionSeconds = 0;
-
+                        
+                        
                         NOTIFICATION_SOUND.play().then(() => {
-
+                            
                             setTimeout(() => {
                                 const msg = window.isWorking ? "휴식 끝! 공부 시작!" : "공부 끝! 5분간 휴식하세요.";
                                 alert(msg);
-
+                                
                                 window.isWorking = !window.isWorking;
-                                window.timeLeft = window.isWorking ? 25 * 60 : 5 * 60;
+                                window.timeLeft = window.isWorking ? 25 * 60 : 5 * 60; 
                                 btn.innerHTML = '<i data-lucide="play"></i> <span>' + (window.isWorking ? "공부 시작" : "휴식 시작") + '</span>';
                                 btn.className = "flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2";
                                 stopBtn.disabled = true;
@@ -443,7 +500,7 @@
                                 lucide.createIcons();
                             }, 500);
                         }).catch(e => {
-
+                            
                             console.log('Sound error', e);
                             const msg = window.isWorking ? "공부 끝! 5분간 휴식하세요." : "휴식 끝! 공부 시작!";
                             alert(msg);
@@ -495,95 +552,6 @@
             const records = window.safeParse(localStorage.getItem(KEYS.RECORDS), {});
             records[today] = (records[today] || 0) + seconds;
             localStorage.setItem(KEYS.RECORDS, JSON.stringify(records));
-        };
-
-        window.statsCurrentResults = null;
-
-        window.loadStatsExample = function() {
-            document.getElementById('statsInput').value = '85, 92, 78, 90, 88, 76, 95, 85';
-            window.hideStatsError();
-        };
-
-        window.handleStatsClear = function() {
-            document.getElementById('statsInput').value = '';
-            window.hideStatsError();
-            window.statsCurrentResults = null;
-            document.getElementById('statsPlaceholder').classList.remove('hidden');
-            document.getElementById('statsResult').classList.add('hidden');
-            document.getElementById('statsCopyBtn').classList.add('hidden');
-        };
-
-        window.showStatsError = function(msg) {
-            const errDiv = document.getElementById('statsError');
-            errDiv.classList.remove('hidden');
-            document.getElementById('statsErrorText').textContent = msg;
-            document.getElementById('statsPlaceholder').classList.remove('hidden');
-            document.getElementById('statsResult').classList.add('hidden');
-            document.getElementById('statsCopyBtn').classList.add('hidden');
-        };
-
-        window.hideStatsError = function() {
-            document.getElementById('statsError').classList.add('hidden');
-        };
-
-        window.handleStatsCalculate = function() {
-            window.hideStatsError();
-            const inputVal = document.getElementById('statsInput').value;
-            const numbers = inputVal.split(/[,\s\n]+/).map(s => s.trim()).filter(s => s !== '').map(Number);
-
-            if (numbers.length === 0) { window.showStatsError('숫자를 입력해주세요.'); return; }
-            if (numbers.some(isNaN)) { window.showStatsError('유효하지 않은 숫자가 포함되어 있습니다.'); return; }
-
-            const sorted = [...numbers].sort((a, b) => a - b);
-            const sum = numbers.reduce((a, b) => a + b, 0);
-            const count = numbers.length;
-            const mean = sum / count;
-
-            let median;
-            const mid = Math.floor(count / 2);
-            median = count % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
-
-            const freq = {};
-            let maxFreq = 0;
-            numbers.forEach(n => { freq[n] = (freq[n] || 0) + 1; if(freq[n] > maxFreq) maxFreq = freq[n]; });
-            
-            let mode = [];
-            if (maxFreq > 1) { for(const n in freq) if(freq[n] === maxFreq) mode.push(Number(n)); }
-            const modeStr = mode.length > 0 ? mode.sort((a,b)=>a-b).join(', ') : '없음';
-
-            const min = sorted[0];
-            const max = sorted[count - 1];
-            const range = max - min;
-            const meanFmt = Number.isInteger(mean) ? mean : mean.toFixed(2).replace(/\.00$/, '');
-
-            window.statsCurrentResults = { mean: meanFmt, sum, median, mode: modeStr, max, min, range, count };
-
-            document.getElementById('valMean').textContent = meanFmt;
-            document.getElementById('valSum').textContent = sum;
-            document.getElementById('valCount').textContent = count + '개';
-            document.getElementById('valMedian').textContent = median;
-            document.getElementById('valMode').textContent = modeStr;
-            document.getElementById('valMax').textContent = max;
-            document.getElementById('valMin').textContent = min;
-            document.getElementById('valRange').textContent = range;
-
-            document.getElementById('statsPlaceholder').classList.add('hidden');
-            document.getElementById('statsResult').classList.remove('hidden');
-            document.getElementById('statsCopyBtn').classList.remove('hidden');
-        };
-
-        window.copyStatsResult = function() {
-            if (!window.statsCurrentResults) return;
-            const res = window.statsCurrentResults;
-            const text = `평균: ${res.mean}\n합계: ${res.sum}\n중앙값: ${res.median}\n최빈값: ${res.mode}\n최대: ${res.max} / 최소: ${res.min}`;
-            
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-            alert('복사되었습니다.');
         };
 
         window.calDate = new Date();
@@ -770,21 +738,10 @@
                 c.appendChild(b);
             });
         };
-    </script>
+     </script>
     <div style="position: fixed; bottom: 10px; right: 10px; color: #888; font-size: 13.5px; font-family: Nanum Gothic, sans-serif; text-align: right;">
+    <div style="position: fixed; bottom: 10px; right: 10px; color: #94a3b8; font-size: 12px; font-weight: bold; z-index: 100; pointer-events: none;">𝐸𝑑𝑢𝑀𝑎𝑡𝑒</div>
       ver. 1.0<br>by. Ω-𝑀𝑒𝑔𝑎𝑠𝑡𝑢𝑑𝑦
 </div>
-</body>
+ </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
