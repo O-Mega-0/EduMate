@@ -740,10 +740,24 @@
             if(!c) return;
             c.innerHTML='';
             window.gcPerformances.forEach((p,i)=>{
-                const hide = window.gcMode==='non-written'?'display:none':'';
+                
                 const el = document.createElement('div');
                 el.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative";
-                el.innerHTML = `<div class="absolute top-0 right-0 bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">수행평가 ${i+1}</div><div class="grid ${window.gcMode==='written'?'grid-cols-2':'grid-cols-1'} gap-4 mt-4"><div><label class="block text-xs font-bold text-slate-500 mb-1">점수 (0~100)</label><input type="number" data-idx="${i}" data-field="score" value="${p.score}" class="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all font-bold text-slate-700" placeholder="점수" oninput="window.updatePerf(${i},'score',this.value)"></div><div style="${hide}"><label class="block text-xs font-bold text-slate-500 mb-1">비율 (%)</label><div class="relative"><input type="number" data-idx="${i}" data-field="weight" value="${p.weight}" class="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all pr-8 font-bold text-slate-700" placeholder="%" oninput="window.updatePerf(${i},'weight',this.value)"><span class="absolute right-3 top-2 text-slate-400 font-bold">%</span></div></div></div>`;
+                el.innerHTML = `
+                <div class="absolute top-0 right-0 bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">수행평가 ${i+1}</div>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">점수 (0~100)</label>
+                        <input type="number" data-idx="${i}" data-field="score" value="${p.score}" class="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all font-bold text-slate-700" placeholder="점수" oninput="window.updatePerf(${i},'score',this.value)">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">비율 (%)</label>
+                        <div class="relative">
+                            <input type="number" data-idx="${i}" data-field="weight" value="${p.weight}" class="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all pr-8 font-bold text-slate-700" placeholder="%" oninput="window.updatePerf(${i},'weight',this.value)">
+                            <span class="absolute right-3 top-2 text-slate-400 font-bold">%</span>
+                        </div>
+                    </div>
+                </div>`;
                 c.appendChild(el);
             });
         }
@@ -754,7 +768,9 @@
                 const p = window.gcPerformances[i];
                 if(isNaN(parseFloat(p.score))||p.score<0||p.score>100) { window.setGradeError(`${i + 1}번 수행평가 점수가 올바르지 않습니다. (0~100)`,2); return; }
             }
+            
             let total=0, grade='E';
+            
             if(window.gcMode==='written') {
                 const m=parseFloat(document.getElementById('midtermScoreInput').value), f=parseFloat(document.getElementById('finalScoreInput').value);
                 if(isNaN(m)||m<0||m>100||isNaN(f)||f<0||f>100) { window.setGradeError('모든 시험 점수는 0점에서 100점 사이여야 합니다.',2); return; }
@@ -768,10 +784,19 @@
                 total = m*0.3 + f*0.3 + pSum;
                 if(total>=90) grade='A'; else if(total>=80) grade='B'; else if(total>=70) grade='C'; else if(total>=60) grade='D';
             } else {
-                let s=0; for(let p of window.gcPerformances) s+=parseFloat(p.score);
-                total = s/window.gcPerformances.length;
+                
+                let wSum=0, pSum=0;
+                for(let i=0; i<window.gcPerformances.length; i++) {
+                    const p = window.gcPerformances[i];
+                    if(isNaN(parseFloat(p.weight)) || parseFloat(p.weight)<0) { window.setGradeError(`${i + 1}번 수행평가 비율이 올바르지 않습니다.`,2); return; }
+                    wSum+=parseFloat(p.weight); pSum+=parseFloat(p.score)*(parseFloat(p.weight)/100);
+                }
+                if(Math.abs(wSum-100)>0.01) { window.setGradeError(`수행평가 반영 비율의 총합은 100%가 되어야 합니다. (현재: ${Number(wSum.toFixed(1))}%)`,2); return; }
+                total = pSum;
+                
                 if(total>=80) grade='A'; else if(total>=70) grade='B'; else if(total>=60) grade='C'; else if(total>=50) grade='D';
             }
+            
             const cMap={'A':'text-indigo-600','B':'text-blue-500','C':'text-green-500','D':'text-yellow-500','E':'text-red-500'};
             document.getElementById('finalGradeDisplay').textContent=grade;
             document.getElementById('finalGradeDisplay').className=`text-6xl font-black ${cMap[grade]}`;
@@ -895,7 +920,7 @@
             if(!h.length) c.innerHTML='<span class="text-slate-400 text-sm">기록 없음</span>';
             h.forEach(t => {
                 const b = document.createElement('button'); b.className='px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full text-sm transition-colors';
-                b.textContent=t; b.onclick=()=>{ document.getElementById('helper-search-input').value=t; window.handleHelperSearch(); };
+                b.textContent=t; b.onclick=()=>{ document.getElementById('helper-search-input').value=t; window.handleHelperSearch({preventDefault:()=>{}}); };
                 c.appendChild(b);
             });
         };
