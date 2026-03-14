@@ -31,8 +31,9 @@
 <body class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 flex items-center justify-center p-4 font-sans text-slate-800">
 
     <div class="bg-white w-full max-w-lg min-h-[700px] max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col relative">
-
-        <header id="appHeader" class="bg-indigo-600 p-5 text-white flex justify-between items-center shadow-md z-10 flex-shrink-0">
+        
+        
+        <header id="appHeader" class="bg-indigo-600 p-5 text-white flex justify-between items-center shadow-md z-20 flex-shrink-0">
             <div class="flex items-center gap-3 cursor-pointer" onclick="window.goHome()">
                 <i data-lucide="graduation-cap" class="w-7 h-7"></i>
                 <h1 class="text-xl font-bold tracking-tight">EduMate</h1>
@@ -47,46 +48,48 @@
             </div>
         </header>
 
-        <main class="flex-1 relative bg-slate-50 overflow-hidden flex flex-col">
-
-            <div id="page-home" class="p-6 h-full overflow-y-auto animate-fade-in flex flex-col gap-4 justify-center">
+        
+        <main class="flex-1 relative bg-slate-50 overflow-hidden">
+            
+            
+            <div id="page-home" class="absolute inset-0 flex flex-col gap-4 justify-center p-6 overflow-y-auto animate-fade-in bg-slate-50 z-10">
                 <h2 class="text-center text-2xl font-bold text-slate-700 mb-6">EduMate와 함께 열공하세요!</h2>
                 
-                <button onclick="window.navigateTo('timer')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-200 transition-all flex items-center gap-4 group">
+                <button onclick="window.navigateTo('timer')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-200 transition-all flex items-center gap-4 group w-full text-left">
                     <div class="bg-indigo-100 p-3 rounded-xl group-hover:bg-indigo-600 transition-colors">
                         <i data-lucide="timer" class="w-8 h-8 text-indigo-600 group-hover:text-white transition-colors"></i>
                     </div>
-                    <div class="text-left">
+                    <div>
                         <div class="font-bold text-lg text-slate-800">순공 시간 계산기</div>
                         <div class="text-sm text-slate-500">뽀모도로 타이머 & 공부 기록</div>
                     </div>
                 </button>
 
-                <button onclick="window.navigateTo('timetable')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-teal-200 transition-all flex items-center gap-4 group">
+                <button onclick="window.navigateTo('timetable')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-teal-200 transition-all flex items-center gap-4 group w-full text-left">
                     <div class="bg-teal-100 p-3 rounded-xl group-hover:bg-teal-500 transition-colors">
                         <i data-lucide="calendar-days" class="w-8 h-8 text-teal-600 group-hover:text-white transition-colors"></i>
                     </div>
-                    <div class="text-left">
+                    <div>
                         <div class="font-bold text-lg text-slate-800">시간표 확인</div>
                         <div class="text-sm text-slate-500">우리 반 시간표 조회</div>
                     </div>
                 </button>
 
-                <button onclick="window.navigateTo('grade')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-200 transition-all flex items-center gap-4 group">
+                <button onclick="window.navigateTo('grade')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-200 transition-all flex items-center gap-4 group w-full text-left">
                     <div class="bg-indigo-100 p-3 rounded-xl group-hover:bg-indigo-600 transition-colors">
                         <i data-lucide="calculator" class="w-8 h-8 text-indigo-600 group-hover:text-white transition-colors"></i>
                     </div>
-                    <div class="text-left">
+                    <div>
                         <div class="font-bold text-lg text-slate-800">성적 계산기</div>
                         <div class="text-sm text-slate-500">학기말 성적 등급 산출</div>
                     </div>
                 </button>
 
-                <button onclick="window.navigateTo('helper')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-purple-200 transition-all flex items-center gap-4 group">
+                <button onclick="window.navigateTo('helper')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-purple-200 transition-all flex items-center gap-4 group w-full text-left">
                     <div class="bg-purple-100 p-3 rounded-xl group-hover:bg-purple-500 transition-colors">
                         <i data-lucide="book-open" class="w-8 h-8 text-purple-600 group-hover:text-white transition-colors"></i>
                     </div>
-                    <div class="text-left">
+                    <div>
                         <div class="font-bold text-lg text-slate-800">학습 도우미</div>
                         <div class="text-sm text-slate-500">백과사전 & 낱말사전 검색</div>
                     </div>
@@ -94,7 +97,7 @@
             </div>
 
             
-            <div id="page-timer" class="hidden h-full flex flex-col p-8 items-center justify-center animate-fade-in relative">
+            <div id="page-timer" class="absolute inset-0 hidden flex-col p-8 items-center justify-center animate-fade-in bg-slate-50 z-10">
                 <div class="absolute top-6 left-0 w-full text-center">
                     <span id="timerStatus" class="inline-block px-4 py-1 rounded-full text-sm font-bold bg-indigo-100 text-indigo-700">공부 준비</span>
                 </div>
@@ -125,8 +128,8 @@
             </div>
 
             
-            <div id="page-timetable" class="hidden h-full flex flex-col p-6 overflow-y-auto custom-scrollbar animate-fade-in bg-slate-50">
-                <header class="mb-6 text-center">
+            <div id="page-timetable" class="absolute inset-0 hidden flex-col p-6 overflow-y-auto custom-scrollbar animate-fade-in bg-slate-50 z-10">
+                <header class="mb-6 text-center mt-2">
                     <div class="inline-flex items-center justify-center p-3 bg-teal-500 rounded-2xl shadow-lg mb-4">
                         <i data-lucide="calendar-days" class="w-8 h-8 text-white"></i>
                     </div>
@@ -141,32 +144,13 @@
                     <div class="relative">
                         <select id="classSelector" onchange="window.renderTimetable()" class="appearance-none bg-slate-50 border border-slate-200 text-slate-700 py-2 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent font-bold">
                             <optgroup label="1학년">
-                                <option value="1-1">1학년 1반</option>
-                                <option value="1-2">1학년 2반</option>
-                                <option value="1-3">1학년 3반</option>
-                                <option value="1-4">1학년 4반</option>
-                                <option value="1-5">1학년 5반</option>
-                                <option value="1-6">1학년 6반</option>
-                                <option value="1-7">1학년 7반</option>
-                                <option value="1-8">1학년 8반</option>
+                                <option value="1-1">1학년 1반</option><option value="1-2">1학년 2반</option><option value="1-3">1학년 3반</option><option value="1-4">1학년 4반</option><option value="1-5">1학년 5반</option><option value="1-6">1학년 6반</option><option value="1-7">1학년 7반</option><option value="1-8">1학년 8반</option>
                             </optgroup>
                             <optgroup label="2학년">
-                                <option value="2-1">2학년 1반</option>
-                                <option value="2-2">2학년 2반</option>
-                                <option value="2-3">2학년 3반</option>
-                                <option value="2-4">2학년 4반</option>
-                                <option value="2-5">2학년 5반</option>
-                                <option value="2-6">2학년 6반</option>
-                                <option value="2-7">2학년 7반</option>
+                                <option value="2-1">2학년 1반</option><option value="2-2">2학년 2반</option><option value="2-3">2학년 3반</option><option value="2-4">2학년 4반</option><option value="2-5">2학년 5반</option><option value="2-6">2학년 6반</option><option value="2-7">2학년 7반</option>
                             </optgroup>
                             <optgroup label="3학년">
-                                <option value="3-1">3학년 1반</option>
-                                <option value="3-2">3학년 2반</option>
-                                <option value="3-3">3학년 3반</option>
-                                <option value="3-4">3학년 4반</option>
-                                <option value="3-5">3학년 5반</option>
-                                <option value="3-6">3학년 6반</option>
-                                <option value="3-7">3학년 7반</option>
+                                <option value="3-1">3학년 1반</option><option value="3-2">3학년 2반</option><option value="3-3">3학년 3반</option><option value="3-4">3학년 4반</option><option value="3-5">3학년 5반</option><option value="3-6">3학년 6반</option><option value="3-7">3학년 7반</option>
                             </optgroup>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
@@ -191,33 +175,48 @@
                             
                         </tbody>
                     </table>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-4 pb-10">* 시간표는 학교 사정에 따라 변경될 수 있습니다.</p>
+            </div>
 
             
-            <div id="page-grade" class="hidden h-full p-6 overflow-y-auto custom-scrollbar animate-fade-in">
+            <div id="page-grade" class="absolute inset-0 hidden flex-col p-6 overflow-y-auto custom-scrollbar animate-fade-in bg-slate-50 z-10">
                 
-                <div id="gc-step0" class="space-y-6 animate-fade-in">
-                    <label class="block text-lg font-medium text-slate-700 mb-4 text-center">
+                <div id="gc-step0" class="space-y-4 mt-4 animate-fade-in">
+                    <label class="block text-xl font-bold text-slate-800 mb-6">
                         계산 방식을 선택해주세요.
                     </label>
-                    <button onclick="window.setGradeMode('written')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
-                        <i data-lucide="pen-tool" class="w-5 h-5"></i> 지필평가 과목
+                    <button onclick="window.setGradeMode('written')" class="w-full bg-white border border-slate-200 hover:border-indigo-400 text-slate-700 hover:text-indigo-600 font-bold py-6 px-4 rounded-2xl shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-indigo-50 p-3 rounded-xl group-hover:bg-indigo-100 transition-colors">
+                                <i data-lucide="pen-tool" class="w-6 h-6 text-indigo-500"></i>
+                            </div>
+                            <span class="text-lg">지필평가 과목</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-indigo-500"></i>
                     </button>
-                    <button onclick="window.setGradeMode('non-written')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
-                        <i data-lucide="palette" class="w-5 h-5"></i> 비지필평가 과목
+                    <button onclick="window.setGradeMode('non-written')" class="w-full bg-white border border-slate-200 hover:border-purple-400 text-slate-700 hover:text-purple-600 font-bold py-6 px-4 rounded-2xl shadow-sm hover:shadow-md transition-all flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-purple-50 p-3 rounded-xl group-hover:bg-purple-100 transition-colors">
+                                <i data-lucide="palette" class="w-6 h-6 text-purple-500"></i>
+                            </div>
+                            <span class="text-lg">비지필평가 과목</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-purple-500"></i>
                     </button>
                 </div>
 
-                <div id="gc-step1" class="hidden space-y-6 animate-fade-in">
-                    <label class="block text-lg font-medium text-slate-700 mb-4">
-                        계산하고자 하는 과목의<br />수행평가 개수를 입력해주세요.
+                <div id="gc-step1" class="hidden space-y-6 mt-4 animate-fade-in">
+                    <label class="block text-xl font-bold text-slate-800 leading-snug">
+                        계산하고자 하는 과목의<br /><span class="text-indigo-600">수행평가 개수</span>를 입력해주세요.
                     </label>
-                    <div class="relative">
-                        <input type="number" id="numPerformanceInput" min="1" max="9" class="w-full text-center text-3xl font-bold text-indigo-600 bg-slate-50 border-2 border-slate-200 rounded-xl py-4 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all appearance-none" placeholder="1-9" value="1">
+                    <div class="relative mt-6">
+                        <input type="number" id="numPerformanceInput" min="1" max="9" class="w-full text-center text-4xl font-black text-indigo-600 bg-white border-2 border-slate-200 rounded-2xl py-6 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all appearance-none shadow-sm" placeholder="1~9" value="1">
                     </div>
-                    <div id="step1Error" class="hidden flex items-center gap-2 text-red-500 bg-red-50 p-3 rounded-lg text-sm font-medium">
+                    <div id="step1Error" class="hidden flex items-center gap-2 text-red-500 bg-red-50 p-3 rounded-xl text-sm font-medium border border-red-100">
                         <i data-lucide="alert-circle" class="w-4 h-4"></i> <span id="step1ErrorText"></span>
                     </div>
-                    <div class="flex gap-3 mt-4">
+                    <div class="flex gap-3 mt-8">
                          <button onclick="window.resetGradeCalc()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-4 rounded-xl transition-all">처음으로</button>
                         <button onclick="window.handleGradeStart()" class="flex-[2] bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
                             다음으로 <i data-lucide="chevron-right" class="w-5 h-5"></i>
@@ -225,80 +224,97 @@
                     </div>
                 </div>
 
-                <div id="gc-step2" class="hidden space-y-6 animate-fade-in">
-                    <h2 id="step2Title" class="text-xl font-bold text-slate-800 border-l-4 border-indigo-500 pl-4 py-1">
+                <div id="gc-step2" class="hidden flex-col h-full animate-fade-in">
+                    <h2 id="step2Title" class="text-lg font-bold text-slate-800 border-l-4 border-indigo-500 pl-3 py-1 mb-4 flex-shrink-0 mt-2">
                         자신의 시험 점수를 입력해주세요.
                     </h2>
-                    <div class="space-y-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                    <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 pb-6">
                         <div id="writtenExamInputs" class="space-y-4">
-                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                <label class="block text-sm font-bold text-slate-600 mb-2">중간고사 (30%)</label>
-                                <input type="number" id="midtermScoreInput" placeholder="0 ~ 100" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <label class="block text-sm font-bold text-slate-600 mb-2">중간고사 <span class="text-indigo-500 font-normal">(30%)</span></label>
+                                <input type="number" id="midtermScoreInput" placeholder="0 ~ 100" class="w-full px-4 py-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:bg-white outline-none transition-all font-bold text-slate-700">
                             </div>
-                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                <label class="block text-sm font-bold text-slate-600 mb-2">기말고사 (30%)</label>
-                                <input type="number" id="finalScoreInput" placeholder="0 ~ 100" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <label class="block text-sm font-bold text-slate-600 mb-2">기말고사 <span class="text-indigo-500 font-normal">(30%)</span></label>
+                                <input type="number" id="finalScoreInput" placeholder="0 ~ 100" class="w-full px-4 py-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:bg-white outline-none transition-all font-bold text-slate-700">
                             </div>
                         </div>
                         <div id="performancesContainer" class="space-y-4"></div>
+                        
+                        <div id="step2Error" class="hidden text-red-500 bg-red-50 p-4 rounded-xl text-sm font-bold border border-red-100 flex items-start gap-2">
+                            <i data-lucide="alert-triangle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i> <span id="step2ErrorText" class="leading-relaxed"></span>
+                        </div>
                     </div>
-                    <div id="step2Error" class="hidden text-red-500 bg-red-50 p-3 rounded-lg text-sm font-medium border border-red-100 animate-pulse">
-                         ⚠ <span id="step2ErrorText"></span>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <button onclick="window.showGradeStep(1)" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-xl transition-all">이전</button>
-                        <button onclick="window.calculateGrade()" class="flex-[2] bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition-all">계산하기</button>
+                    
+                    <div class="flex gap-3 pt-4 border-t border-slate-200 bg-slate-50 flex-shrink-0 pb-2">
+                        <button onclick="window.showGradeStep(1)" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-4 rounded-xl transition-all">이전</button>
+                        <button onclick="window.calculateGrade()" class="flex-[2] bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i> 계산하기
+                        </button>
                     </div>
                 </div>
 
-                <div id="gc-step3" class="hidden text-center space-y-8 animate-fade-in py-8">
+                <div id="gc-step3" class="hidden text-center space-y-8 animate-fade-in py-10 mt-6">
                     <div class="relative inline-block">
                         <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur opacity-30"></div>
                         <div class="relative bg-white rounded-full w-32 h-32 flex items-center justify-center border-4 border-indigo-50 shadow-inner mx-auto">
                             <span id="finalGradeDisplay" class="text-6xl font-black"></span>
                         </div>
                     </div>
-                    <div class="space-y-2">
+                    <div class="space-y-3">
                         <h3 class="text-2xl font-bold text-slate-800">
                             회원님의 등급은 <span id="finalGradeText" class="text-indigo-600"></span> 등급입니다.
                         </h3>
-                        <p class="text-slate-500">
-                            총점: <span id="totalScoreDisplay" class="font-semibold text-slate-700"></span>점
+                        <p class="text-slate-500 bg-white inline-block px-4 py-2 rounded-full border border-slate-200 shadow-sm">
+                            최종 환산 점수: <span id="totalScoreDisplay" class="font-bold text-slate-800"></span>점
                         </p>
                     </div>
-                    <button onclick="window.resetGradeCalc()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
-                        <i data-lucide="rotate-ccw" class="w-5 h-5"></i> 처음으로 돌아가기
+                    <button onclick="window.resetGradeCalc()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mt-4">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5"></i> 다시 계산하기
                     </button>
                 </div>
             </div>
 
             
-            <div id="page-helper" class="hidden h-full flex flex-col animate-fade-in bg-slate-50 overflow-hidden relative">
-                <div id="helper-home" class="h-full flex flex-col p-6 overflow-y-auto custom-scrollbar">
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 mb-6">
-                        <div class="flex bg-slate-100 p-1 rounded-xl mb-4">
+            <div id="page-helper" class="absolute inset-0 hidden flex-col animate-fade-in bg-slate-50 overflow-hidden z-10 w-full">
+                <div id="helper-home" class="flex-1 flex flex-col p-6 overflow-y-auto custom-scrollbar w-full">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 mb-6 w-full">
+                        <div class="flex bg-slate-100 p-1 rounded-xl mb-4 w-full">
                             <label class="flex-1 cursor-pointer"><input type="radio" name="search-type" value="wikipedia" checked class="peer hidden" onchange="window.updateSearchTypeUI()"><div class="text-center py-2 rounded-lg text-sm font-bold text-slate-500 peer-checked:bg-white peer-checked:text-indigo-600 peer-checked:shadow-sm transition-all">📚 백과사전</div></label>
                             <label class="flex-1 cursor-pointer"><input type="radio" name="search-type" value="wiktionary" class="peer hidden" onchange="window.updateSearchTypeUI()"><div class="text-center py-2 rounded-lg text-sm font-bold text-slate-500 peer-checked:bg-white peer-checked:text-green-600 peer-checked:shadow-sm transition-all">📖 낱말사전</div></label>
                         </div>
-                        <form onsubmit="window.handleHelperSearch(event)" class="relative">
+                        <form onsubmit="window.handleHelperSearch(event)" class="relative w-full">
                             <input type="text" id="helper-search-input" placeholder="검색어를 입력하세요..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 pr-12 focus:outline-none focus:border-indigo-500 focus:bg-white transition-all font-medium">
                             <button type="submit" class="absolute right-2 top-2 bottom-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 rounded-lg transition-colors"><i data-lucide="search" class="w-5 h-5"></i></button>
                         </form>
                     </div>
-                    <div class="mb-6"><h3 class="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">최근 검색 기록</h3><div id="helper-history" class="flex flex-wrap gap-2"></div></div>
-                    <div id="helper-results" class="hidden space-y-3 pb-10"><h3 class="text-sm font-bold text-slate-700 mb-2">검색 결과</h3><div id="helper-results-list" class="space-y-3"></div></div>
-                </div>
-                <div id="helper-detail" class="hidden h-full flex flex-col bg-white overflow-hidden">
-                    <div class="p-4 border-b border-slate-100 flex items-center gap-2"><button onclick="window.showHelperView('home')" class="p-2 hover:bg-slate-100 rounded-lg transition-colors"><i data-lucide="arrow-left" class="w-5 h-5 text-slate-600"></i></button><span id="detail-badge" class="px-2 py-0.5 rounded text-xs font-bold text-white bg-slate-800">WIKI</span></div>
-                    <div class="flex-1 overflow-y-auto p-6 custom-scrollbar">
-                        <h2 id="detail-title" class="text-2xl font-black text-slate-800 mb-4">Title</h2>
-                        <div id="detail-image-container" class="mb-6 hidden"><img id="detail-image" class="w-full max-h-60 object-contain bg-slate-50 rounded-xl border border-slate-100"></div>
-                        <div class="mb-8"><h3 class="flex items-center gap-2 text-lg font-bold text-indigo-700 mb-3"><i data-lucide="lightbulb" class="w-5 h-5"></i> 핵심 요약</h3><div id="detail-summary" class="bg-indigo-50 p-4 rounded-xl text-slate-700 leading-relaxed text-sm space-y-2"></div></div>
-                        <div class="border-t border-slate-100 pt-6"><details class="group"><summary class="flex items-center justify-between cursor-pointer p-3 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors font-bold text-slate-700 select-none"><span>📖 전체 내용 보기</span><i data-lucide="chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform"></i></summary><div class="mt-4 text-slate-600 leading-7 text-sm whitespace-pre-line px-2" id="detail-full-text"></div></details></div>
-                        <a id="detail-link" href="#" target="_blank" class="block mt-8 text-center text-xs text-slate-400 hover:text-indigo-600 underline">원본 문서 보기</a>
+                    <div class="mb-6 w-full"><h3 class="text-xs font-bold text-slate-400 mb-3 uppercase tracking-wider">최근 검색 기록</h3><div id="helper-history" class="flex flex-wrap gap-2 w-full"></div></div>
+                    
+                    
+                    <div id="helper-results" class="hidden flex-col space-y-3 pb-10 w-full">
+                        <h3 class="text-sm font-bold text-slate-700 mb-2">검색 결과</h3>
+                        <div id="helper-results-list" class="flex flex-col space-y-3 w-full"></div>
                     </div>
                 </div>
-                <div id="helper-loader" class="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center hidden"><div class="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-3"></div><p class="text-sm font-bold text-indigo-600 animate-pulse">지식을 찾는 중...</p></div>
+
+                <div id="helper-detail" class="hidden flex-1 flex flex-col bg-white overflow-hidden w-full">
+                    <div class="p-4 border-b border-slate-100 flex items-center gap-2 flex-shrink-0">
+                        <button onclick="window.showHelperView('home')" class="p-2 hover:bg-slate-100 rounded-lg transition-colors"><i data-lucide="arrow-left" class="w-5 h-5 text-slate-600"></i></button>
+                        <span id="detail-badge" class="px-2 py-0.5 rounded text-xs font-bold text-white bg-slate-800">WIKI</span>
+                    </div>
+                    <div class="flex-1 overflow-y-auto p-6 custom-scrollbar w-full break-words">
+                        <h2 id="detail-title" class="text-2xl font-black text-slate-800 mb-4">Title</h2>
+                        <div id="detail-image-container" class="mb-6 hidden"><img id="detail-image" class="w-full max-h-60 object-contain bg-slate-50 rounded-xl border border-slate-100"></div>
+                        <div class="mb-8"><h3 class="flex items-center gap-2 text-lg font-bold text-indigo-700 mb-3"><i data-lucide="zap" class="w-5 h-5"></i> 핵심 요약</h3><div id="detail-summary" class="bg-indigo-50 p-4 rounded-xl text-slate-700 leading-relaxed text-sm space-y-2"></div></div>
+                        <div class="border-t border-slate-100 pt-6"><details class="group"><summary class="flex items-center justify-between cursor-pointer p-3 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors font-bold text-slate-700 select-none"><span>📖 전체 내용 보기</span><i data-lucide="chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform"></i></summary><div class="mt-4 text-slate-600 leading-7 text-sm whitespace-pre-line px-2 break-words" id="detail-full-text"></div></details></div>
+                        <a id="detail-link" href="#" target="_blank" class="block mt-8 text-center text-xs text-slate-400 hover:text-indigo-600 underline pb-6">원본 문서 보기</a>
+                    </div>
+                </div>
+
+                <div id="helper-loader" class="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 hidden flex-col items-center justify-center w-full">
+                    <div class="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-3"></div>
+                    <p class="text-sm font-bold text-indigo-600 animate-pulse">지식을 찾는 중...</p>
+                </div>
             </div>
         </main>
 
@@ -318,7 +334,6 @@
 
     <script>
         const KEYS = { RECORDS: 'study_records', HELPER: 'helper_history', MY_CLASS: 'my_class' };
-        
         const NOTIFICATION_SOUND = new Audio('https://raw.githubusercontent.com/nuelim887/Sound-Effect-2/main/Sound-Effect-2.mp3');
 
         
@@ -363,7 +378,6 @@
                 }
             });
             
-            
             const savedClass = localStorage.getItem(KEYS.MY_CLASS);
             if (savedClass) {
                 const selector = document.getElementById('classSelector');
@@ -371,32 +385,57 @@
                     selector.value = savedClass;
                 }
             }
-            window.renderTimetable(); 
-
+            window.renderTimetable();
             window.navigateTo('home');
-            lucide.createIcons();
         });
 
+        
         window.navigateTo = function(pageId) {
-            ['home', 'timer', 'timetable', 'grade', 'helper'].forEach(id => {
-                const el = document.getElementById(`page-${id}`);
-                if(el) el.classList.add('hidden');
-            });
-            document.getElementById(`page-${pageId}`).classList.remove('hidden');
-            
-            const calBtn = document.getElementById('calendarBtn');
-            const homeBtn = document.getElementById('homeBtn');
-            
-            if (pageId === 'home') {
-                calBtn.classList.add('hidden');
-                homeBtn.classList.add('hidden');
-            } else {
-                homeBtn.classList.remove('hidden');
-                calBtn.classList.toggle('hidden', pageId !== 'timer'); 
+            try {
+                
+                ['home', 'timer', 'timetable', 'grade', 'helper'].forEach(id => {
+                    const el = document.getElementById(`page-${id}`);
+                    if(el) {
+                        el.classList.add('hidden');
+                        el.classList.remove('flex');
+                    }
+                });
+                
+                
+                const targetEl = document.getElementById(`page-${pageId}`);
+                if(targetEl) {
+                    targetEl.classList.remove('hidden');
+                    targetEl.classList.add('flex');
+                }
+                
+                
+                const calBtn = document.getElementById('calendarBtn');
+                const homeBtn = document.getElementById('homeBtn');
+                
+                if (pageId === 'home') {
+                    calBtn.classList.add('hidden');
+                    homeBtn.classList.add('hidden');
+                } else {
+                    homeBtn.classList.remove('hidden');
+                    calBtn.classList.toggle('hidden', pageId !== 'timer'); 
+                }
+
+                
+                if (pageId === 'grade') {
+                    window.resetGradeCalc(); 
+                } else if (pageId === 'helper') {
+                    window.showHelperView('home');
+                    window.renderHelperHistory();
+                }
+
+                setTimeout(() => {
+                    try { lucide.createIcons(); } catch(e) { console.warn("Icon error:", e); }
+                }, 10);
+            } catch (error) {
+                console.error("Navigation error:", error);
             }
-            if(pageId === 'helper') window.renderHelperHistory();
-            lucide.createIcons();
         };
+
         window.goHome = function() { window.navigateTo('home'); };
 
         
@@ -406,11 +445,9 @@
             const tbody = document.getElementById('timetableBody');
             tbody.innerHTML = '';
             
-            
             localStorage.setItem(KEYS.MY_CLASS, classId);
 
             data.forEach((row, rowIndex) => {
-                
                 const isRowEmpty = row.every(cell => cell === '-' || cell === '');
                 if (isRowEmpty && rowIndex > 5) return;
 
@@ -433,7 +470,7 @@
         
         window.timerInterval = null;
         window.isWorking = true;
-        window.timeLeft = 25 * 60; 
+        window.timeLeft = 25 * 60;
         window.currentSessionSeconds = 0;
         window.isTimerRunning = false;
 
@@ -441,7 +478,7 @@
             const m = Math.floor(window.timeLeft / 60).toString().padStart(2, '0');
             const s = (window.timeLeft % 60).toString().padStart(2, '0');
             document.getElementById('timerDisplay').textContent = `${m}:${s}`;
-            const total = window.isWorking ? 25 * 60 : 5 * 60; 
+            const total = window.isWorking ? 25 * 60 : 5 * 60;
             const progress = ((total - window.timeLeft) / total) * 753.98;
             document.getElementById('timerProgress').style.strokeDashoffset = -progress;
         };
@@ -470,12 +507,9 @@
                     if (window.timeLeft > 0) {
                         window.timeLeft--;
                         if (window.isWorking) window.currentSessionSeconds++;
-                        
-                        
                         if (window.isWorking && window.currentSessionSeconds > 0 && window.currentSessionSeconds % 60 === 0) {
                             window.saveStudyTime(60);
                         }
-
                         window.updateTimerDisplay();
                     } else {
                         clearInterval(window.timerInterval);
@@ -483,25 +517,20 @@
                         window.saveStudyTime(window.currentSessionSeconds % 60);
                         window.currentSessionSeconds = 0;
                         
-                        
                         NOTIFICATION_SOUND.play().then(() => {
-                            
                             setTimeout(() => {
-                                const msg = window.isWorking ? "휴식 끝! 공부 시작!" : "공부 끝! 5분간 휴식하세요.";
+                                const msg = window.isWorking ? "공부 끝! 5분간 휴식하세요." : "휴식 끝! 공부 시작!";
                                 alert(msg);
-                                
                                 window.isWorking = !window.isWorking;
-                                window.timeLeft = window.isWorking ? 25 * 60 : 5 * 60; 
+                                window.timeLeft = window.isWorking ? 25 * 60 : 5 * 60;
                                 btn.innerHTML = '<i data-lucide="play"></i> <span>' + (window.isWorking ? "공부 시작" : "휴식 시작") + '</span>';
                                 btn.className = "flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2";
                                 stopBtn.disabled = true;
                                 window.updateTimerDisplay();
                                 window.updateTimerButton();
-                                lucide.createIcons();
+                                try { lucide.createIcons(); } catch(e){}
                             }, 500);
                         }).catch(e => {
-                            
-                            console.log('Sound error', e);
                             const msg = window.isWorking ? "공부 끝! 5분간 휴식하세요." : "휴식 끝! 공부 시작!";
                             alert(msg);
                             window.isWorking = !window.isWorking;
@@ -511,12 +540,12 @@
                             stopBtn.disabled = true;
                             window.updateTimerDisplay();
                             window.updateTimerButton();
-                            lucide.createIcons();
+                            try { lucide.createIcons(); } catch(e){}
                         });
                     }
                 }, 1000);
             }
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch(e){}
             window.updateTimerButton();
         };
 
@@ -543,7 +572,7 @@
             document.getElementById('btnTimerStop').disabled = true;
             document.getElementById('timerStatus').textContent = "공부 준비";
             document.getElementById('timerStatus').classList.remove('animate-pulse');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch(e){}
         };
 
         window.saveStudyTime = function(seconds) {
@@ -554,6 +583,7 @@
             localStorage.setItem(KEYS.RECORDS, JSON.stringify(records));
         };
 
+        
         window.calDate = new Date();
         window.toggleCalendar = function() {
             const m = document.getElementById('calendarModal');
@@ -589,44 +619,58 @@
             if(s) h += `<div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-indigo-500"></i> 순공: <b>${Math.floor(s/3600)}시간 ${Math.floor((s%3600)/60)}분</b></div>`;
             else h += `<div class="text-slate-400 text-xs">공부 기록 없음</div>`;
             document.getElementById('dayDetailContent').innerHTML = h;
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch(e){}
         };
 
+        
         window.gcStep=0; window.gcMode='written'; window.gcPerformances=[];
         window.setGradeMode = function(m) { window.gcMode=m; window.showGradeStep(1); };
         window.showGradeStep = function(s) {
             window.gcStep=s;
-            ['0','1','2','3'].forEach(i=>document.getElementById(`gc-step${i}`).classList.add('hidden'));
-            document.getElementById(`gc-step${s}`).classList.remove('hidden');
+            ['0','1','2','3'].forEach(i=> {
+                const step = document.getElementById(`gc-step${i}`);
+                if(step) { step.classList.add('hidden'); step.classList.remove('flex'); }
+            });
+            const targetStep = document.getElementById(`gc-step${s}`);
+            if(targetStep) {
+                targetStep.classList.remove('hidden');
+                if(s===2) targetStep.classList.add('flex'); 
+            }
             if(s===2) {
                 document.getElementById('step2Title').textContent = window.gcMode==='written'?'자신의 시험 점수를 입력해주세요.':'자신의 성적을 입력해주세요.';
                 document.getElementById('writtenExamInputs').classList.toggle('hidden', window.gcMode!=='written');
                 window.renderPerformances();
             }
-            window.clearGradeError(); lucide.createIcons();
+            window.clearGradeError(); 
+            try { lucide.createIcons(); } catch(e){}
         };
         window.setGradeError = function(m,s) {
             const t = document.getElementById(`step${s}ErrorText`), d = document.getElementById(`step${s}Error`);
             if(t&&d) { t.textContent=m; d.classList.remove('hidden'); }
         };
-        window.clearGradeError = function() { ['step1Error','step2Error'].forEach(i=>document.getElementById(i).classList.add('hidden')); };
+        window.clearGradeError = function() { ['step1Error','step2Error'].forEach(i=> { const el=document.getElementById(i); if(el) el.classList.add('hidden'); }); };
         window.handleGradeStart = function() {
-            const n = parseInt(document.getElementById('numPerformanceInput').value);
+            const inputEl = document.getElementById('numPerformanceInput');
+            const n = parseInt(inputEl ? inputEl.value : "1");
             if(isNaN(n)||n<1||n>9) { window.setGradeError('1에서 9 사이의 숫자를 입력해주세요.',1); return; }
             window.gcPerformances = Array.from({ length: n }, () => ({ score: '', weight: '' }));
             window.clearGradeError(); window.showGradeStep(2);
         };
         window.renderPerformances = function() {
-            const c = document.getElementById('performancesContainer'); c.innerHTML='';
+            const c = document.getElementById('performancesContainer'); 
+            if(!c) return;
+            c.innerHTML='';
             window.gcPerformances.forEach((p,i)=>{
                 const hide = window.gcMode==='non-written'?'display:none':'';
                 const el = document.createElement('div');
-                el.className = "bg-slate-50 p-4 rounded-xl border border-slate-100 relative";
-                el.innerHTML = `<div class="absolute top-0 right-0 bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg">수행 ${i+1}</div><div class="grid ${window.gcMode==='written'?'grid-cols-2':'grid-cols-1'} gap-4 mt-2"><div><label class="block text-xs font-bold text-slate-500 mb-1">점수 (0~100)</label><input type="number" data-idx="${i}" data-field="score" value="${p.score}" class="w-full px-3 py-2 rounded-lg border border-slate-300 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all" placeholder="점수" oninput="window.updatePerf(${i},'score',this.value)"></div><div style="${hide}"><label class="block text-xs font-bold text-slate-500 mb-1">비율 (%)</label><div class="relative"><input type="number" data-idx="${i}" data-field="weight" value="${p.weight}" class="w-full px-3 py-2 rounded-lg border border-slate-300 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all pr-8" placeholder="%" oninput="window.updatePerf(${i},'weight',this.value)"><span class="absolute right-3 top-2 text-slate-400 font-bold">%</span></div></div></div>`;
+                el.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative";
+                el.innerHTML = `<div class="absolute top-0 right-0 bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">수행평가 ${i+1}</div><div class="grid ${window.gcMode==='written'?'grid-cols-2':'grid-cols-1'} gap-4 mt-4"><div><label class="block text-xs font-bold text-slate-500 mb-1">점수 (0~100)</label><input type="number" data-idx="${i}" data-field="score" value="${p.score}" class="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all font-bold text-slate-700" placeholder="점수" oninput="window.updatePerf(${i},'score',this.value)"></div><div style="${hide}"><label class="block text-xs font-bold text-slate-500 mb-1">비율 (%)</label><div class="relative"><input type="number" data-idx="${i}" data-field="weight" value="${p.weight}" class="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all pr-8 font-bold text-slate-700" placeholder="%" oninput="window.updatePerf(${i},'weight',this.value)"><span class="absolute right-3 top-2 text-slate-400 font-bold">%</span></div></div></div>`;
                 c.appendChild(el);
             });
         }
         window.updatePerf = function(i,f,v) { window.gcPerformances[i][f] = v; window.clearGradeError(); };
+        
+        
         window.calculateGrade = function() {
             for(let i=0; i<window.gcPerformances.length; i++) {
                 const p = window.gcPerformances[i];
@@ -658,57 +702,98 @@
             document.getElementById('totalScoreDisplay').textContent=total.toFixed(2);
             window.showGradeStep(3);
         };
+
         window.resetGradeCalc = function() {
-            document.getElementById('numPerformanceInput').value=1;
-            document.getElementById('midtermScoreInput').value='';
-            document.getElementById('finalScoreInput').value='';
+            const nInput = document.getElementById('numPerformanceInput');
+            if(nInput) nInput.value=1;
+            const mInput = document.getElementById('midtermScoreInput');
+            if(mInput) mInput.value='';
+            const fInput = document.getElementById('finalScoreInput');
+            if(fInput) fInput.value='';
+            window.gcPerformances = [];
             window.showGradeStep(0);
         };
 
+        
         const APIS = { wikipedia: { ep: "https://ko.wikipedia.org/w/api.php", base: "https://ko.wikipedia.org/wiki/", name: "WIKIPEDIA", col: "bg-slate-800" }, wiktionary: { ep: "https://ko.wiktionary.org/w/api.php", base: "https://ko.wiktionary.org/wiki/", name: "WIKTIONARY", col: "bg-green-600" } };
         window.showHelperView = function(v) {
-            ['home','detail','results'].forEach(id=>document.getElementById(`helper-${id}`).classList.add('hidden'));
-            document.getElementById(`helper-${v}`).classList.remove('hidden');
-            if(v==='home') document.getElementById('helper-home').classList.remove('hidden'); 
-            if(v==='results') { document.getElementById('helper-home').classList.remove('hidden'); document.getElementById('helper-results').classList.remove('hidden'); }
-            lucide.createIcons();
+            ['home','detail','results'].forEach(id=>{
+                const el = document.getElementById(`helper-${id}`);
+                if(el) { el.classList.add('hidden'); el.classList.remove('flex'); }
+            });
+            const targetEl = document.getElementById(`helper-${v}`);
+            if(targetEl) { targetEl.classList.remove('hidden'); targetEl.classList.add('flex'); }
+            
+            if(v==='home') {
+                const homeEl = document.getElementById('helper-home');
+                if(homeEl) { homeEl.classList.remove('hidden'); homeEl.classList.add('flex'); }
+            }
+            if(v==='results') { 
+                const homeEl = document.getElementById('helper-home');
+                const resEl = document.getElementById('helper-results');
+                if(homeEl) { homeEl.classList.remove('hidden'); homeEl.classList.add('flex'); }
+                
+                if(resEl) { resEl.classList.remove('hidden'); resEl.classList.add('flex'); }
+            }
+            try { lucide.createIcons(); } catch(e){}
         };
         window.updateSearchTypeUI = function(){};
         window.handleHelperSearch = async function(e) {
-            e.preventDefault();
-            const t = document.getElementById('helper-search-input').value.trim();
+            if(e) e.preventDefault();
+            const inputEl = document.getElementById('helper-search-input');
+            const t = inputEl ? inputEl.value.trim() : "";
             if(!t) return;
             window.saveHelperHistory(t);
             document.getElementById('helper-loader').classList.remove('hidden');
+            document.getElementById('helper-loader').classList.add('flex');
             const type = document.querySelector('input[name="search-type"]:checked').value;
             try {
                 const res = await fetch(`${APIS[type].ep}?action=query&list=search&srsearch=${encodeURIComponent(t)}&format=json&origin=*`);
                 const data = await res.json();
                 window.renderHelperResults(data.query.search, type);
-            } catch(err){ alert('검색 실패'); } finally { document.getElementById('helper-loader').classList.add('hidden'); }
+            } catch(err){ alert('검색에 실패했습니다. 인터넷 연결을 확인해주세요.'); } 
+            finally { 
+                document.getElementById('helper-loader').classList.add('hidden'); 
+                document.getElementById('helper-loader').classList.remove('flex');
+            }
         };
+        
+        
         window.renderHelperResults = function(r, type) {
-            const l = document.getElementById('helper-results-list'); l.innerHTML = '';
-            if(!r||!r.length) l.innerHTML='<div class="text-center py-8 text-slate-400">결과 없음</div>';
-            else r.forEach(i => {
-                const d = document.createElement('div'); d.className='helper-card cursor-pointer hover:bg-slate-50';
-                d.onclick=()=>window.fetchHelperDetail(i.title,type);
-                d.innerHTML=`<h4 class="text-indigo-600 font-bold mb-1">${i.title}</h4><p class="text-sm text-slate-500 line-clamp-2">${i.snippet.replace(/<[^>]*>/g,'')}...</p>`;
-                l.appendChild(d);
-            });
+            const l = document.getElementById('helper-results-list'); 
+            if(!l) return;
+            l.innerHTML = '';
+            if(!r||!r.length) {
+                l.innerHTML='<div class="text-center py-8 text-slate-400 w-full block">검색 결과가 없습니다.</div>';
+            } else {
+                r.forEach(i => {
+                    const d = document.createElement('div'); 
+                    
+                    d.className='bg-white p-5 rounded-2xl shadow-sm border border-slate-100 cursor-pointer hover:shadow-md hover:border-indigo-200 transition-all w-full block break-words';
+                    d.onclick=()=>window.fetchHelperDetail(i.title,type);
+                    d.innerHTML=`<h4 class="text-indigo-600 font-bold text-base mb-1">${i.title}</h4><p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">${i.snippet.replace(/<[^>]*>/g,'')}...</p>`;
+                    l.appendChild(d);
+                });
+            }
             window.showHelperView('results');
         };
+        
         window.fetchHelperDetail = async function(title, type) {
             document.getElementById('helper-loader').classList.remove('hidden');
+            document.getElementById('helper-loader').classList.add('flex');
             const src = APIS[type];
             try {
                 const res = await fetch(`${src.ep}?action=query&prop=extracts|pageimages&titles=${encodeURIComponent(title)}&explaintext=true&pithumbsize=600&format=json&origin=*`);
                 const data = await res.json();
                 const pid = Object.keys(data.query.pages)[0];
                 const p = data.query.pages[pid];
-                if(pid==="-1") alert('문서 없음');
-                else window.renderHelperDetail({title:p.title, text:p.extract||"", img:p.thumbnail?.source, url:src.base+encodeURIComponent(p.title)}, src);
-            } catch(e){ alert('로드 실패'); } finally { document.getElementById('helper-loader').classList.add('hidden'); }
+                if(pid==="-1") alert('문서를 찾을 수 없습니다.');
+                else window.renderHelperDetail({title:p.title, text:p.extract||"내용이 없습니다.", img:p.thumbnail?.source, url:src.base+encodeURIComponent(p.title)}, src);
+            } catch(e){ alert('문서를 불러오는데 실패했습니다.'); } 
+            finally { 
+                document.getElementById('helper-loader').classList.add('hidden'); 
+                document.getElementById('helper-loader').classList.remove('flex');
+            }
         };
         window.renderHelperDetail = function(d, src) {
             document.getElementById('detail-badge').innerText=src.name;
@@ -730,18 +815,16 @@
         };
         window.renderHelperHistory = function() {
             const h = window.safeParse(localStorage.getItem(KEYS.HELPER), []);
-            const c = document.getElementById('helper-history'); c.innerHTML='';
+            const c = document.getElementById('helper-history'); 
+            if(!c) return;
+            c.innerHTML='';
             if(!h.length) c.innerHTML='<span class="text-slate-400 text-sm">기록 없음</span>';
             h.forEach(t => {
                 const b = document.createElement('button'); b.className='px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full text-sm transition-colors';
-                b.textContent=t; b.onclick=()=>{ document.getElementById('helper-search-input').value=t; window.handleHelperSearch({preventDefault:()=>{}}); };
+                b.textContent=t; b.onclick=()=>{ document.getElementById('helper-search-input').value=t; window.handleHelperSearch(); };
                 c.appendChild(b);
             });
         };
-     </script>
-    <div style="position: fixed; bottom: 10px; right: 10px; color: #888; font-size: 13.5px; font-family: Nanum Gothic, sans-serif; text-align: right;">
-    <div style="position: fixed; bottom: 10px; right: 10px; color: #94a3b8; font-size: 12px; font-weight: bold; z-index: 100; pointer-events: none;">𝐸𝑑𝑢𝑀𝑎𝑡𝑒</div>
-      ver. 1.0<br>by. Ω-𝑀𝑒𝑔𝑎𝑠𝑡𝑢𝑑𝑦
-</div>
- </body>
+    </script>
+</body>
 </html>
