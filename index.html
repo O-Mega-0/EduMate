@@ -351,6 +351,74 @@
             "3-7": [["영어","미술","수학","기가","수학"],["기가","국어","과학","체육","역사"],["국어","수학","체육","도덕","미술"],["수학","영어","역사","영어","과학"],["사회","과학","영어","과학","국어"],["스포","사회","도덕","국어","음악"],["-","-","스포","-","-"]]
         };
 
+        const SCHOOL_EVENTS = {
+            "2026-03-01": [{text: "3.1절", color: "red"}],
+            "2026-03-03": [{text: "입학식", color: "purple"}],
+            "2026-03-04": [{text: "아동학대 및 가정폭력 예방교육"}],
+            "2026-03-06": [{text: "봉사활동 소양교육, 학급임원선거"}],
+            "2026-03-13": [{text: "동아리"}],
+            "2026-03-26": [{text: "교내봉사활동, 장애이해교육"}],
+            "2026-03-27": [{text: "표준화검사, 학부모총회"}],
+            "2026-03-31": [{text: "1학년 영어듣기능력평가", color: "blue"}],
+            "2026-04-01": [{text: "2학년 영어듣기능력평가", color: "blue"}],
+            "2026-04-02": [{text: "3학년 영어듣기능력평가", color: "blue"}],
+            "2026-04-09": [{text: "과학 환경 한마당"}],
+            "2026-04-10": [{text: "동아리"}],
+            "2026-04-16": [{text: "학생자치활동"}],
+            "2026-04-20": [{text: "2,3학년 중간고사", color: "blue"}],
+            "2026-04-21": [{text: "2,3학년 중간고사", color: "blue"}],
+            "2026-05-01": [{text: "재량휴업일", color: "red"}],
+            "2026-05-05": [{text: "어린이날", color: "red"}],
+            "2026-05-06": [{text: "현장체험학습", color: "green"}],
+            "2026-05-07": [{text: "현장체험학습", color: "green"}],
+            "2026-05-08": [{text: "현장체험학습", color: "green"}],
+            "2026-05-14": [{text: "학생자치활동, 학교폭력예방교육"}],
+            "2026-05-15": [{text: "동아리"}],
+            "2026-05-19": [{text: "통일교육"}],
+            "2026-05-22": [{text: "교내봉사활동, 체육한마당"}],
+            "2026-05-24": [{text: "석가탄신일", color: "red"}],
+            "2026-06-06": [{text: "현충일", color: "red"}],
+            "2026-06-12": [{text: "동아리"}],
+            "2026-06-18": [{text: "학생자치활동"}],
+            "2026-06-24": [{text: "2,3학년 기말고사", color: "blue"}],
+            "2026-06-25": [{text: "2,3학년 기말고사", color: "blue"}],
+            "2026-06-26": [{text: "2,3학년 기말고사", color: "blue"}],
+            "2026-07-10": [{text: "동아리, 성폭력예방교육"}],
+            "2026-07-20": [{text: "여름방학식", color: "purple"}, {text: "교내봉사활동"}],
+            "2026-08-15": [{text: "광복절", color: "red"}],
+            "2026-08-18": [{text: "2학기 개학식", color: "purple"}, {text: "교내봉사활동"}],
+            "2026-08-27": [{text: "학생자치활동"}],
+            "2026-08-28": [{text: "동아리"}],
+            "2026-09-16": [{text: "약물예방교육"}],
+            "2026-09-17": [{text: "학생자치활동"}],
+            "2026-09-18": [{text: "동아리"}],
+            "2026-09-22": [{text: "교내봉사활동"}],
+            "2026-09-24": [{text: "추석연휴", color: "red"}],
+            "2026-09-25": [{text: "추석연휴", color: "red"}],
+            "2026-09-26": [{text: "추석연휴", color: "red"}],
+            "2026-10-03": [{text: "개천절", color: "red"}],
+            "2026-10-08": [{text: "한글날백일장"}],
+            "2026-10-09": [{text: "한글날", color: "red"}],
+            "2026-10-15": [{text: "학생자치활동"}],
+            "2026-10-19": [{text: "전학년 중간고사", color: "blue"}],
+            "2026-10-20": [{text: "전학년 중간고사", color: "blue"}],
+            "2026-10-21": [{text: "전학년 중간고사", color: "blue"}],
+            "2026-10-23": [{text: "동아리, 생명존중교육"}],
+            "2026-10-29": [{text: "정보문화한마당"}],
+            "2026-10-30": [{text: "개교기념일"}],
+            "2026-11-03": [{text: "성폭력예방교육"}],
+            "2026-11-09": [{text: "장애이해교육"}],
+            "2026-11-19": [{text: "학생자치활동"}],
+            "2026-11-27": [{text: "동아리"}],
+            "2026-12-09": [{text: "전학년 기말고사", color: "blue"}],
+            "2026-12-10": [{text: "전학년 기말고사", color: "blue"}],
+            "2026-12-11": [{text: "전학년 기말고사", color: "blue"}],
+            "2026-12-18": [{text: "문화예술의 날"}],
+            "2026-12-24": [{text: "총학생회선거"}],
+            "2026-12-25": [{text: "크리스마스", color: "red"}],
+            "2027-01-06": [{text: "졸업식", color: "purple"}]
+        };
+
         window.safeParse = function(str, fallback) { try { return str ? JSON.parse(str) : fallback; } catch (e) { return fallback; } };
         window.getLocalTodayStr = function() {
             const now = new Date();
@@ -397,27 +465,17 @@
                 const calBtn = document.getElementById('calendarBtn');
                 const homeBtn = document.getElementById('homeBtn');
                 
-                if (pageId === 'home') {
-                    calBtn.classList.add('hidden');
-                    homeBtn.classList.add('hidden');
-                } else {
-                    homeBtn.classList.remove('hidden');
-                    calBtn.classList.toggle('hidden', pageId !== 'timer'); 
-                }
+                if (pageId === 'home') homeBtn.classList.add('hidden');
+                else homeBtn.classList.remove('hidden');
 
-                if (pageId === 'grade') {
-                    window.resetGradeCalc(); 
-                } else if (pageId === 'helper') {
-                    window.showHelperView('home');
-                    window.renderHelperHistory();
-                }
+                if (['home', 'timer', 'timetable'].includes(pageId)) calBtn.classList.remove('hidden');
+                else calBtn.classList.add('hidden');
 
-                setTimeout(() => {
-                    try { lucide.createIcons(); } catch(e) { console.warn("Icon error:", e); }
-                }, 10);
-            } catch (error) {
-                console.error("Navigation error:", error);
-            }
+                if (pageId === 'grade') window.resetGradeCalc(); 
+                else if (pageId === 'helper') { window.showHelperView('home'); window.renderHelperHistory(); }
+
+                setTimeout(() => { try { lucide.createIcons(); } catch(e) {} }, 10);
+            } catch (error) {}
         };
 
         window.goHome = function() { window.navigateTo('home'); };
@@ -584,21 +642,57 @@
             for(let i=0; i<fDay; i++) c.appendChild(document.createElement('div'));
             for(let d=1; d<=lDate; d++) {
                 const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const evts = SCHOOL_EVENTS[dateStr] || [];
                 const cell = document.createElement('div');
                 cell.className = 'aspect-square flex flex-col items-center justify-center rounded-lg hover:bg-indigo-50 cursor-pointer relative transition-colors';
-                cell.innerHTML = `<span class="text-sm font-medium ${new Date().toDateString() === new Date(y,m,d).toDateString() ? 'bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center' : 'text-slate-700'}">${d}</span>`;
                 
-                if(recs[dateStr]) cell.innerHTML += `<div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500"></div>`;
-                cell.onclick = () => window.showDayDetail(dateStr, recs[dateStr]);
+                let dotsHtml = `<div class="flex gap-0.5 mt-1 justify-center flex-wrap max-w-full px-1">`;
+                if(recs[dateStr]) dotsHtml += `<div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>`;
+                if(evts.length > 0) {
+                    evts.forEach(evt => {
+                        let bgCol = 'bg-slate-400';
+                        if(evt.color === 'red') bgCol = 'bg-red-500';
+                        else if(evt.color === 'purple') bgCol = 'bg-purple-500';
+                        else if(evt.color === 'blue') bgCol = 'bg-blue-500';
+                        else if(evt.color === 'green') bgCol = 'bg-green-500';
+                        dotsHtml += `<div class="w-1.5 h-1.5 rounded-full ${bgCol}"></div>`;
+                    });
+                }
+                dotsHtml += `</div>`;
+                if(!recs[dateStr] && evts.length === 0) dotsHtml = '';
+
+                cell.innerHTML = `<span class="text-sm font-medium ${new Date().toDateString() === new Date(y,m,d).toDateString() ? 'bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center' : 'text-slate-700'}">${d}</span>${dotsHtml}`;
+                cell.onclick = () => window.showDayDetail(dateStr, recs[dateStr], evts);
                 c.appendChild(cell);
             }
         };
-        window.showDayDetail = function(ds, s) {
+
+        window.showDayDetail = function(ds, s, evts) {
             document.getElementById('dayDetail').classList.remove('hidden');
             document.getElementById('dayDetailDate').textContent = ds;
             let h = '';
-            if(s) h += `<div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-indigo-500"></i> 순공: <b>${Math.floor(s/3600)}시간 ${Math.floor((s%3600)/60)}분</b></div>`;
-            else h += `<div class="text-slate-400 text-xs">공부 기록 없음</div>`;
+            
+            if(s) h += `<div class="flex items-center gap-2 mb-2"><i data-lucide="clock" class="w-4 h-4 text-indigo-500"></i> 순공: <b>${Math.floor(s/3600)}시간 ${Math.floor((s%3600)/60)}분</b></div>`;
+            else h += `<div class="text-slate-400 text-xs mb-2">공부 기록 없음</div>`;
+            
+            if (evts && evts.length > 0) {
+                h += `<div class="mt-3 border-t border-slate-200 pt-3 flex flex-col gap-1.5">`;
+                evts.forEach(evt => {
+                    let colClass = 'bg-slate-100 text-slate-700';
+                    let dotCol = 'bg-slate-400';
+                    if(evt.color === 'red') { colClass = 'bg-red-100 text-red-700'; dotCol = 'bg-red-500'; }
+                    else if(evt.color === 'purple') { colClass = 'bg-purple-100 text-purple-700'; dotCol = 'bg-purple-500'; }
+                    else if(evt.color === 'blue') { colClass = 'bg-blue-100 text-blue-700'; dotCol = 'bg-blue-500'; }
+                    else if(evt.color === 'green') { colClass = 'bg-green-100 text-green-700'; dotCol = 'bg-green-500'; }
+                    
+                    h += `<div class="${colClass} px-2 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full ${dotCol}"></div>
+                        ${evt.text}
+                    </div>`;
+                });
+                h += `</div>`;
+            }
+
             document.getElementById('dayDetailContent').innerHTML = h;
             try { lucide.createIcons(); } catch(e){}
         };
